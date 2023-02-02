@@ -1,8 +1,7 @@
 const express = require('express');
 const path = require('path');
 const db = require('./config/connection');
-//const routes = require('./routes');
-//instead of routes, use Apollo Server resolvers instead.
+
 const { ApolloServer } = require('apollo-server-express')
 const { typeDefs, resolvers } = require('./schemas')
 const { authMiddleware } = require('./utils/auth')
