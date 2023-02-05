@@ -15,6 +15,12 @@ const resolvers = {
         return await Task.findById({_id: taskId}).populate('participants');
       }
       throw new AuthenticationError('You need to be logged in!');
+    },
+    tasks: async(parent, {username}, context) => {
+      if (context.user) {
+        return await Task.find({username}).sort({ createdAt: -1 })
+      }
+      throw new AuthenticationError('You need to be logged in!');
     }
   },
   Mutation: {

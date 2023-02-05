@@ -13,8 +13,8 @@ export const GET_ME = gql`
           }
     }
 `
-export const GET_TASK = gql`
-    query getTask{
+export const GET_ONE_TASK = gql`
+    query getOneTask{
         task(taskId: $taskId) {
             _id
             title
@@ -26,6 +26,16 @@ export const GET_TASK = gql`
             username
             }
             participantCount
+        }
+    }
+`
+
+export const GET_TASKS = gql`
+    query getTasks($username: String!) {
+        tasks(username: $username) {
+            _id
+            title
+            createdAt
         }
     }
 `
