@@ -5,14 +5,11 @@ const { AuthenticationError } = require('apollo-server-express')
 const resolvers = {
   Query:{
     me: async (parent, args, context) => {
-      if (context.user) {
-        return await User.findById(context.user._id ).populate('savedTasks');
-      }
-      throw new AuthenticationError('You need to be logged in!');
+        return await User.findById(context.user._id);
     },
     task: async (parent, {taskId}, context) => {
       if (context.user) {
-        return await Task.findById({_id: taskId}).populate('participants');
+        return await Task.findById(taskId).populate('participants');
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -20,7 +17,7 @@ const resolvers = {
       if (context.user) {
         //if a username is provided, pull from their tasks, otherwise pull from the user's.
         const params = username? {username} : context.user.username
-        return await Task.find(params).sort({ createdAt: -1 })
+        return await Task.find({username: params}).sort({ createdAt: -1 })
       }
       throw new AuthenticationError('You need to be logged in!');
     }
@@ -48,10 +45,9 @@ const resolvers = {
       const token = signToken(user)
       return { token, user }
     },
-    addTask: async(parent, {title, taskText}, context) => {
+    addTask: async(parent, args, context) => {
         if(context.user){
-          const username = context.user.username
-          const task = await Task.create({title, taskText, username})
+          const task = await Task.create(args.task)
           await Task.findByIdAndUpdate(
             {_id: task._id},
             {$push: {participants: context.user._id}},

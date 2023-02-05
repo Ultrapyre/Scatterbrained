@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Container, Row, Col} from 'react-bootstrap';
 import { useQuery } from '@apollo/client';
 
@@ -7,9 +7,9 @@ import { GET_ME } from '../utils/queries'
 
 const Home = () => {
 
-    const [activeTasks, setActiveTasks] = useState([]);
-
-    const {loading, data} = useQuery(GET_ME)
+    const { loading, data } = useQuery(GET_ME)
+    
+    const user = data?.me || {}
 
     return (
         <Container fluid className='bg-light'>
@@ -20,7 +20,7 @@ const Home = () => {
                 </Col> 
                 {Auth.loggedIn() && (
                 <Col md={6}>
-                    <h2>This only appears when logged in!</h2>
+                    <h2>Welcome back, {user.username}!</h2>
                 </Col>
                 )}  
             </Row>

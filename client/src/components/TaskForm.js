@@ -1,6 +1,7 @@
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Alert, Form , Button} from "react-bootstrap";
+import Auth from "../utils/auth";
 import { ADD_TASK, UPDATE_TASK } from "../utils/mutations";
 import { GET_TASKS } from "../utils/queries";
 
@@ -52,21 +53,18 @@ const TaskForm = ({taskId}) => {
     }
 
     const handleFormSubmit = async (event) => {
-        //Checks for form validity.
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
+        event.preventDefault();
         //If an ID is present, run the updateTask mutation instead. Otherwise run the addTask mutation.
         if(selectedTask){
             try {
-                const { data } = await updateTask({
+                const username = Auth.getProfile().data.username
+                await updateTask({
                     variables: {
-                        selectedTask,
-                        ...taskFormData
+                        taskId: selectedTask,
+                        task: {...taskFormData, username}
                     }
                 })
+                window.location.assign(`/tasks/${taskId}`)
             } 
             catch (err) {
                 console.error(err);
@@ -75,9 +73,11 @@ const TaskForm = ({taskId}) => {
         }
         else{
             try {
-                const { data } = await addTask({
-                    variables: {...taskFormData}
+                const username = Auth.getProfile().data.username
+                await addTask({
+                    variables: {task: {...taskFormData, username}}
                 })
+                window.location.assign('/tasks')
             } 
             catch (err) {
                 console.error(err);
@@ -107,7 +107,7 @@ const TaskForm = ({taskId}) => {
             </Form.Group>
 
             <Form.Group>
-                <Form.Label htmlFor="taskText">Title:</Form.Label>
+                <Form.Label htmlFor="taskText">Your Task:</Form.Label>
                 <Form.Control 
                     type="text"
                     placeholder='So what is the task you got?'

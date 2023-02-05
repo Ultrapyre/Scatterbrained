@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Button, Container, Modal } from 'react-bootstrap';
-import { useState, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 //Import the GET_ME query from queries.
 import { GET_TASKS } from '../utils/queries'
 //Import the Task list.
 import TaskList from '../components/TaskList'
 import TaskForm from '../components/TaskForm';
+//Import Auth to check if user is logged in.
+import Auth from '../utils/auth'
 
 const AllTasks = () => {
     //Shows and hides the Modal for adding a new Task.
@@ -15,12 +17,16 @@ const AllTasks = () => {
 
     const tasks = data?.tasks || []
 
+    //Boots the user back to the homepage if they aren't logged in.
+    if(!Auth.loggedIn()){
+        window.location.assign('/')
+    }
+
     if(loading){
         return (
             <h1>Grabbing data... gimme a sec!</h1>
         )
     }
-    
 
     return (
         <Container fluid>
@@ -39,7 +45,7 @@ const AllTasks = () => {
                     </Modal.Title>
                 </Modal.Header>    
                 <Modal.Body>
-                    <TaskForm handleModalClose={()=>setShowModal(false)}/>
+                    <TaskForm onSubmit={()=>setShowModal(false)}/>
                 </Modal.Body>
             </Modal>
         </Container>

@@ -28,13 +28,12 @@ const AppNavbar = () => {
                             {/* Displays the login/logout button depending on login status*/}
                             {Auth.loggedIn() ? (
                             <>
-                            <Nav.Link as={Link} to='/tasks'>Public/Private Tasks</Nav.Link> 
+                            <Nav.Link as={Link} to='/tasks'>My Tasks</Nav.Link> 
                             <Nav.Link as={Link} to='/profile'>My Profile</Nav.Link> 
                             <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                             </>
                             ) : (
                             <>
-                            <Nav.Link as={Link} to='/tasks'>Public Tasks</Nav.Link> 
                             <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
                             </>
                             )}

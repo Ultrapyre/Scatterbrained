@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { Container, Card } from "react-bootstrap";
 
 //This component accept an array of queried tasks and returns an entire list of them.
-const TaskList = ({
-    tasks
-}) => {
+const TaskList = ({tasks}) => {
+
     if (!tasks.length) {
         return (
             <Container fluid>

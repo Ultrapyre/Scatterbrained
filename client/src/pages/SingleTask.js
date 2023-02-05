@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Container, Card, Button, Modal } from 'react-bootstrap';
 //useParams pulls the ID from the URL for the website's use.
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 //Import the GET_ONE_TASK query from utils
 import { GET_ONE_TASK } from '../utils/queries'
 //Add the TaskForm for updating
 import TaskForm from '../components/TaskForm';
 import { REMOVE_TASK } from '../utils/mutations';
+//Import Auth to check if user is logged in.
+import Auth from '../utils/auth'
 
 const SingleTask = () => {
     //Toggles the Modal for updating the task.
@@ -22,11 +24,15 @@ const SingleTask = () => {
     //Either the task variable is empty, or filled with the data from the query.
     const task = data?.task || {}
 
+    //Boots the user back to the homepage if they aren't logged in.
+    if(!Auth.loggedIn()){
+        window.location.assign('/')
+    }
+
     const handleRemoveTask = async (taskId) => {
         try {
-            const {data} = await removeTask({
-                variables: {taskId}
-            })   
+            await removeTask({variables: {taskId}})
+            window.location.assign('/tasks')   
         } 
         catch (err) {
             console.error(err);
@@ -47,7 +53,7 @@ const SingleTask = () => {
             <Card.Text>{task.taskText}</Card.Text>
             <Card.Footer>
                 <Button onClick={()=>setShowModal(true)}>Update Task</Button>
-                <Button as={Link} to='/tasks' onClick={handleRemoveTask}>Delete Task</Button>
+                <Button onClick={()=>handleRemoveTask(taskId)}>Delete Task</Button>
             </Card.Footer>
 
             <Modal
@@ -57,7 +63,7 @@ const SingleTask = () => {
             >
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        <h1>New Task</h1>
+                        <h1>Update Task</h1>
                     </Modal.Title>
                 </Modal.Header>    
                 <Modal.Body>

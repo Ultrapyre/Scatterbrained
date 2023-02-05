@@ -4,6 +4,7 @@ const TypeDefs = gql`
     input TaskData {
         title: String!
         taskText: String!
+        username: String!
     }
 
     type User {

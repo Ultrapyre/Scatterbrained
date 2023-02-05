@@ -6,15 +6,12 @@ export const GET_ME = gql`
             _id
             username
             email
-            friends
-            friendCount
-            savedTasks
             taskCount
           }
     }
 `
 export const GET_ONE_TASK = gql`
-    query getOneTask{
+    query getOneTask($taskId: ID!){
         task(taskId: $taskId) {
             _id
             title
