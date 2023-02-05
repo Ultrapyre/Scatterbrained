@@ -48,9 +48,10 @@ const resolvers = {
       const token = signToken(user)
       return { token, user }
     },
-    addTask: async(parent, args, context) => {
+    addTask: async(parent, {title, taskText}, context) => {
         if(context.user){
-          const task = await Task.create(args.task)
+          const username = context.user.username
+          const task = await Task.create({title, taskText, username})
           await Task.findByIdAndUpdate(
             {_id: task._id},
             {$push: {participants: context.user._id}},
@@ -65,11 +66,11 @@ const resolvers = {
         }
         throw new AuthenticationError('You need to be logged in!');
     },
-    updateTask: async(parent, {taskId, taskText}, context) => {
+    updateTask: async(parent, args, context) => {
         if(context.user){
           const task = await Task.findByIdAndUpdate(
-            {_id: taskId},
-            {taskText: taskText},
+            {_id: args.taskId},
+            {title: args.task.title, taskText: args.task.taskText},
             { new: true, runValidators: true}
           )
           if(task){

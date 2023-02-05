@@ -20,7 +20,7 @@ const TaskList = ({
                 <Card key={task._id}>
                     <h1>{task.title}</h1>
                     <p>{task.createdAt}</p>
-                    <Link className='btn' to={`/tasks/${task._id}`}>Click for More Details</Link>
+                    <Link className='btn' to={`/tasks/${task._id}`}>Details</Link>
                 </Card>
             ))}
         </Container>

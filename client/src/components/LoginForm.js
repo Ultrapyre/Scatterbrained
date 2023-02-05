@@ -29,19 +29,14 @@ const LoginForm = () => {
     }
 
     try {
-      //const response = await loginUser(userFormData);
-      const mutationResponse = await login({
-        variables: { email: userFormData.email, password: userFormData.password },
+      const { data } = await login({
+        variables: { ...userFormData },
       })
-      const token = mutationResponse.data.login.token;
 
+      Auth.login(data.login.token);
       if (error) {
          throw new Error('something went wrong!');
       }
-
-      //const { token, user } = await response.json();
-      //console.log(user);
-      Auth.login(token);
     } catch (err) {
       console.error(err);
       setShowAlert(true);

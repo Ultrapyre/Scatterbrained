@@ -3,7 +3,6 @@ const { gql } = require('apollo-server-express')
 const TypeDefs = gql`
     input TaskData {
         title: String!
-        username: String!
         taskText: String!
     }
 
@@ -42,7 +41,7 @@ const TypeDefs = gql`
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
         addTask(task: TaskData!): Task
-        updateTask(taskId: ID!, taskText: String!): Task
+        updateTask(taskId: ID!, task: TaskData!): Task
         removeTask(taskId: ID!): Task
     }
 `
