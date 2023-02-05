@@ -18,7 +18,9 @@ const resolvers = {
     },
     tasks: async(parent, {username}, context) => {
       if (context.user) {
-        return await Task.find({username}).sort({ createdAt: -1 })
+        //if a username is provided, pull from their tasks, otherwise pull from the user's.
+        const params = username? {username} : context.user.username
+        return await Task.find(params).sort({ createdAt: -1 })
       }
       throw new AuthenticationError('You need to be logged in!');
     }

@@ -7,7 +7,8 @@ import { setContext } from '@apollo/client/link/context';
 
 import Home from './pages/Home.js'
 import Profile from './pages/Profile.js'
-import ActiveTasks from './pages/ActiveTasks'
+import AllTasks from './pages/AllTasks'
+import SingleTask from './pages/SingleTask.js';
 
 import Navbar from './components/Navbar.js'
 
@@ -43,12 +44,15 @@ function App() {
               />
               <Route 
                 path='/tasks' 
-                element={<ActiveTasks />} 
+                element={<AllTasks />} 
               />
               <Route 
                 path='/profile' 
                 element={<Profile />} 
               />
+              <Route
+                path='/tasks/:taskId'
+                element={<SingleTask />}/>
               <Route 
                 path='*'
                 element={<h1 className='display-2'>Error: page not found. What are you doing here? :P</h1>}

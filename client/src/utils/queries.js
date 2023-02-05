@@ -31,8 +31,8 @@ export const GET_ONE_TASK = gql`
 `
 
 export const GET_TASKS = gql`
-    query getTasks($username: String!) {
-        tasks(username: $username) {
+    query getTasks{
+        tasks{
             _id
             title
             createdAt
