@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
+import { Container, Row, Col} from 'react-bootstrap';
 import { useQuery } from '@apollo/client';
 
 import Auth from '../utils/auth';
@@ -12,8 +12,19 @@ const Home = () => {
     const {loading, data} = useQuery(GET_ME)
 
     return (
-        <>
-        </>
+        <Container fluid className='bg-light'>
+            <Row md={6}>
+                <Col md={6}>
+                    <h1>Scatterbrained</h1>
+                    <h2>Planning made (slightly) simpler!</h2>
+                </Col> 
+                {Auth.loggedIn() && (
+                <Col md={6}>
+                    <h2>This only appears when logged in!</h2>
+                </Col>
+                )}  
+            </Row>
+        </Container>
     )
 }
 

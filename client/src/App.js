@@ -6,6 +6,8 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink,} from '@ap
 import { setContext } from '@apollo/client/link/context';
 
 import Home from './pages/Home.js'
+import Profile from './pages/Profile.js'
+import ActiveTasks from './pages/ActiveTasks'
 
 import Navbar from './components/Navbar.js'
 
@@ -38,6 +40,14 @@ function App() {
               <Route 
                 path='/' 
                 element={<Home />} 
+              />
+              <Route 
+                path='/tasks' 
+                element={<ActiveTasks />} 
+              />
+              <Route 
+                path='/profile' 
+                element={<Profile />} 
               />
               <Route 
                 path='*'

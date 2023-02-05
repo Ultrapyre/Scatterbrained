@@ -6,7 +6,7 @@ const taskSchema = new Schema(
             type: String,
             required: true,
         },
-        createdBy:{
+        username:{
             type: String,
             required: true,
         },
@@ -14,8 +14,9 @@ const taskSchema = new Schema(
             type: String,
             required: true,
         },
-        scheduledAt: {
+        createdAt: {
             type: Date,
+            default: Date.now(),
             //Modifies the date format into a more readable format when queried.
             get: (function(value){return value.toLocaleString()})
         },
@@ -31,6 +32,10 @@ const taskSchema = new Schema(
         id: false
     }
 )
+
+taskSchema.virtual('participantCount').get(function () {
+    return this.participants.length;
+});  
 
 const Task = model('task', taskSchema)
 

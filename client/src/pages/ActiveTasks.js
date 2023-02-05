@@ -1,4 +1,5 @@
-import React, {useQuery} from 'react';
+import React from 'react';
+import { useQuery } from '@apollo/client';
 //Import the GET_ME query from queries.
 import { GET_ME } from '../utils/queries'
 //Import the Task list.

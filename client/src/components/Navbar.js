@@ -24,13 +24,19 @@ const AppNavbar = () => {
                     <Navbar.Toggle aria-controls='navbar' />
                     <Navbar.Collapse id='navbar'>
                         <Nav className='ml-auto'>
+                            
                             {/* Displays the login/logout button depending on login status*/}
                             {Auth.loggedIn() ? (
                             <>
+                            <Nav.Link as={Link} to='/tasks'>Public/Private Tasks</Nav.Link> 
+                            <Nav.Link as={Link} to='/profile'>My Profile</Nav.Link> 
                             <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                             </>
                             ) : (
+                            <>
+                            <Nav.Link as={Link} to='/tasks'>Public Tasks</Nav.Link> 
                             <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
+                            </>
                             )}
                         </Nav>
                     </Navbar.Collapse>
@@ -44,7 +50,7 @@ const AppNavbar = () => {
                 aria-labelledby='signup-modal'>
                 {/* tab container to do either signup or login component */}
                 <Tab.Container defaultActiveKey='login'>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton   >
                     <Modal.Title id='signup-modal'>
                     <Nav variant='pills'>
                         <Nav.Item>
