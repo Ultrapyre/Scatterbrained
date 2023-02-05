@@ -43,6 +43,11 @@ const resolvers = {
     addTask: async(parent, args, context) => {
         if(context.user){
           const task = await Task.create(args.task)
+          await Task.findByIdAndUpdate(
+            {_id: task._id},
+            {$push: {participants: context.user._id}},
+            { new: true, runValidators: true}
+          )
           await User.findByIdAndUpdate(
             {_id: context.user._id},
             {$push: {savedTasks: [task]}},
@@ -68,7 +73,15 @@ const resolvers = {
     },
     removeTask: async(parent, {taskId}, context) => {
         if(context.user){
-          return Task.findByIdAndRemove({_id: taskId})
+          const task = await Task.findByIdAndRemove({_id: taskId})
+          if(task){
+            await User.findByIdAndUpdate(
+              {_id: context.user._id},
+              {$pull: {savedTasks: task._id}}
+            )
+            return task
+          }
+          throw new Error('No such task with that ID found!')
         }
         throw new AuthenticationError('You need to be logged in!');
     }

@@ -13,3 +13,19 @@ export const GET_ME = gql`
           }
     }
 `
+export const GET_TASK = gql`
+    query getTask{
+        task(taskId: $taskId) {
+            _id
+            title
+            username
+            taskText
+            createdAt
+            participants {
+            _id
+            username
+            }
+            participantCount
+        }
+    }
+`

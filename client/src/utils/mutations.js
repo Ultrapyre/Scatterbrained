@@ -22,3 +22,46 @@ export const ADD_USER = gql`
         }
     }
 `
+
+export const ADD_TASK = gql`
+    mutation addTask($task: TaskData!) {
+        addTask(task: $task) {
+            _id
+            title
+            username
+            taskText
+            createdAt
+            participants {
+                _id
+                username
+            }
+            participantCount
+        }
+    }    
+`
+export const UPDATE_TASK = gql`
+    mutation updateTask($taskId: ID!, $taskText: String!) {
+        updateTask(taskId: $taskId, taskText: $taskText) {
+            _id
+            title
+            username
+            taskText
+            createdAt
+            participants {
+                _id
+                username
+            }
+            participantCount
+        }
+    }
+`
+export const REMOVE_TASK = gql`
+    mutation removeTask($taskId: ID!) {
+        removeTask(taskId: $taskId) {
+            _id
+            title
+            username
+            taskText
+        }
+    }
+`
