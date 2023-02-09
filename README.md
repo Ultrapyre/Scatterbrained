@@ -33,4 +33,4 @@ My email address: sidneymakhiutao@yahoo.com.hk
 
 ## Links:
 
-Deployed application: 
+Deployed application: https://glacial-journey-34900.herokuapp.com/
