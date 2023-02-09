@@ -30,7 +30,7 @@ const AllTasks = () => {
 
     return (
         <Container fluid>
-            <Button onClick={()=>setShowModal(true)}>Add a new Task</Button>
+            <Button className='btn btn-secondary btn-lg m-3' onClick={()=>setShowModal(true)}>Add a new Task</Button>
             <TaskList
                 tasks = {tasks}
             />

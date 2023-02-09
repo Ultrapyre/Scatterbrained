@@ -1,6 +1,6 @@
 import React from 'react';
 import { GET_ME } from '../utils/queries'
-import { Container, Row, Col} from 'react-bootstrap';
+import { Container, Col, Row} from 'react-bootstrap';
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
 
@@ -24,8 +24,18 @@ const Profile = () =>{
     }
 
     return (
-        <Container fluid>
-            
+        <Container fluid className='vh-100'>
+            <Col className='m-5'>
+                <Row className='p-3'>
+                    <h2>Username: {user.username}</h2>
+                </Row>
+                <Row className='p-3'>
+                    <h2>Email: {user.email}</h2>
+                </Row>
+                <Row className='p-3'>
+                    <h2>Tasks pending: {user.taskCount}</h2>
+                </Row>
+            </Col>
         </Container>
     )
 }

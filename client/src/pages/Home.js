@@ -12,15 +12,15 @@ const Home = () => {
     const user = data?.me || {}
 
     return (
-        <Container fluid className='bg-light'>
-            <Row md={6}>
-                <Col md={6}>
-                    <h1>Scatterbrained</h1>
-                    <h2>Planning made (slightly) simpler!</h2>
+        <Container fluid>
+            <Row className='m-3'>
+                <Col>
+                    <h1 className='p-3'>Scatterbrained</h1>
+                    <h2 className='p-3'>Planning made (slightly) simpler!</h2>
                 </Col> 
                 {Auth.loggedIn() && (
-                <Col md={6}>
-                    <h2>Welcome back, {user.username}!</h2>
+                <Col>
+                    <h2 className='p-3'>Welcome back, {user.username}!</h2>
                 </Col>
                 )}  
             </Row>

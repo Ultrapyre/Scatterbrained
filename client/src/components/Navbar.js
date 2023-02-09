@@ -15,8 +15,8 @@ const AppNavbar = () => {
 
     return (
         <>
-            <Navbar>
-                <Container fluid>
+            <Navbar className='p-4'>
+                <Container fluid className='m-2'>
                     <Navbar.Brand as={Link} to='/'>
                     Home
                     </Navbar.Brand>

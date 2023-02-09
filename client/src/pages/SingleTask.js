@@ -45,16 +45,18 @@ const SingleTask = () => {
     }
 
     return (
-        <Container fluid>
-            <Card.Header>
-                <h1>{task.title}</h1>
-                <h3>Created by {task.username} on {task.createdAt}</h3>
-            </Card.Header>
-            <Card.Text>{task.taskText}</Card.Text>
-            <Card.Footer>
-                <Button onClick={()=>setShowModal(true)}>Update Task</Button>
-                <Button onClick={()=>handleRemoveTask(taskId)}>Delete Task</Button>
-            </Card.Footer>
+        <Container fluid className='vh-100'>
+            <Card className='m-5'bg='light' text='dark'>
+                <Card.Header>
+                    <h2 className='p-2'>{task.title}</h2>
+                    <h5 className='p-3'>Created by {task.username} on {task.createdAt}</h5>
+                </Card.Header>
+                <Card.Text className='m-3 text-center'>{task.taskText}</Card.Text>
+                <Card.Footer>
+                    <Button className='btn btn-block btn-dark' onClick={()=>setShowModal(true)}>Update Task</Button>
+                    <Button className='btn btn-block btn-danger' onClick={()=>handleRemoveTask(taskId)}>Delete Task</Button>
+                </Card.Footer>
+            </Card>
 
             <Modal
                 size='lg'

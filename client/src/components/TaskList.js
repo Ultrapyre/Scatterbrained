@@ -16,10 +16,10 @@ const TaskList = ({tasks}) => {
     return (
         <Container fluid>
             {tasks && tasks.map((task) => (
-                <Card key={task._id}>
+                <Card className='p-3 bg-secondary' key={task._id}>
                     <h1>{task.title}</h1>
                     <p>{task.createdAt}</p>
-                    <Link className='btn' to={`/tasks/${task._id}`}>Details</Link>
+                    <Link className='btn bg-light' to={`/tasks/${task._id}`}>Details</Link>
                 </Card>
             ))}
         </Container>
